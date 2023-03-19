@@ -1,0 +1,10 @@
+{
+    "name": "waxframework/framework",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "WaxFramework\\": "src/"
+        }
+    },
+    "require": {}
+}
