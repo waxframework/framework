@@ -14,6 +14,8 @@ class App
 
 	public static Container $container;
 
+	public static Config $config;
+
 	protected static string $root_dir;
 
 	protected static string $root_url;
@@ -35,11 +37,16 @@ class App
 
 		$container = new Container();
 		$container->set(static::class, static::$instance);
+
+		$config = $container->get(Config::class);
+
+		static::$config = $config;
 		static::$container = $container;
 
 		$this->set_path($plugin_root_file, $plugin_root_dir);
 
 		$this->boot_core_service_providers();
+		$this->boot_plugin_service_providers();
 
 		static::$loaded = true;
 	}
@@ -62,7 +69,21 @@ class App
 
 	protected function boot_core_service_providers(): void
 	{
-		foreach ($this->core_service_providers() as $provider) {
+		$this->boot_service_providers($this->core_service_providers());
+	}
+
+	protected function boot_plugin_service_providers(): void
+	{
+		$this->boot_service_providers(static::$config->get('app.providers'));
+
+		if (is_admin()) {
+			$this->boot_service_providers(static::$config->get('app.admin_providers'));
+		}
+	}
+
+	protected function boot_service_providers(array $providers): void
+	{
+		foreach ($providers as $provider) {
 
 			$provider_instance = static::$container->get($provider);
 
