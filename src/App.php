@@ -8,96 +8,87 @@ use WaxFramework\Providers\RouteServiceProvider;
 
 class App
 {
-	public static bool $loaded;
+    public static bool $loaded;
 
-	public static App $instance;
+    public static App $instance;
 
-	public static Container $container;
+    public static Container $container;
 
-	public static Config $config;
+    public static Config $config;
 
-	protected static string $root_dir;
+    protected static string $root_dir;
 
-	protected static string $root_url;
+    protected static string $root_url;
 
-	public static function instance()
-	{
-		if (empty(static::$instance)) {
-			static::$instance = new static;
-		}
+    public static function instance() {
+        if ( empty( static::$instance ) ) {
+            static::$instance = new static;
+        }
 
-		return static::$instance;
-	}
+        return static::$instance;
+    }
 
-	public function load(string $plugin_root_file, string $plugin_root_dir)
-	{
-		if (!empty(static::$loaded)) {
-			return;
-		}
+    public function load( string $plugin_root_file, string $plugin_root_dir ) {
+        if ( ! empty( static::$loaded ) ) {
+            return;
+        }
 
-		
-		$container = new Container();
-		$container->set(static::class, static::$instance);
+        
+        $container = new Container();
+        $container->set( static::class, static::$instance );
 
-		$config = $container->get(Config::class);
+        $config = $container->get( Config::class );
 
-		static::$config = $config;
-		static::$container = $container;
+        static::$config    = $config;
+        static::$container = $container;
 
-		$this->set_path($plugin_root_file, $plugin_root_dir);
+        $this->set_path( $plugin_root_file, $plugin_root_dir );
 
-		$this->boot_core_service_providers();
-		$this->boot_plugin_service_providers();
+        $this->boot_core_service_providers();
+        $this->boot_plugin_service_providers();
 
-		static::$loaded = true;
-	}
+        static::$loaded = true;
+    }
 
-	protected function set_path(string $plugin_root_file, string $plugin_root_dir)
-	{
-		static::$root_url = trailingslashit(plugin_dir_url($plugin_root_file));
-		static::$root_dir = trailingslashit($plugin_root_dir);
-	}
+    protected function set_path( string $plugin_root_file, string $plugin_root_dir ) {
+        static::$root_url = trailingslashit( plugin_dir_url( $plugin_root_file ) );
+        static::$root_dir = trailingslashit( $plugin_root_dir );
+    }
 
-	public static function get_dir(string $dir = '')
-	{
-		return static::$root_dir . trim($dir, '/');
-	}
+    public static function get_dir( string $dir = '' ) {
+        return static::$root_dir . trim( $dir, '/' );
+    }
 
-	public static function get_url(string $url = '')
-	{
-		return static::$root_url . trim($url, '/');
-	}
+    public static function get_url( string $url = '' ) {
+        return static::$root_url . trim( $url, '/' );
+    }
 
-	protected function boot_core_service_providers(): void
-	{
-		$this->boot_service_providers($this->core_service_providers());
-	}
+    protected function boot_core_service_providers(): void {
+        $this->boot_service_providers( $this->core_service_providers() );
+    }
 
-	protected function boot_plugin_service_providers(): void
-	{
-		$this->boot_service_providers(static::$config->get('app.providers'));
+    protected function boot_plugin_service_providers(): void {
+        $this->boot_service_providers( static::$config->get( 'app.providers' ) );
 
-		if (is_admin()) {
-			$this->boot_service_providers(static::$config->get('app.admin_providers'));
-		}
-	}
+        if ( is_admin() ) {
+            $this->boot_service_providers( static::$config->get( 'app.admin_providers' ) );
+        }
+    }
 
-	protected function boot_service_providers(array $providers): void
-	{
-		foreach ($providers as $provider) {
+    protected function boot_service_providers( array $providers ): void {
+        foreach ( $providers as $provider ) {
 
-			$provider_instance = static::$container->get($provider);
+            $provider_instance = static::$container->get( $provider );
 
-			if ($provider_instance instanceof Provider) {
-				$provider_instance->boot();
-			}
-		}
-	}
+            if ( $provider_instance instanceof Provider ) {
+                $provider_instance->boot();
+            }
+        }
+    }
 
-	protected function core_service_providers()
-	{
-		return [
-			RouteServiceProvider::class
-		];
-	}
+    protected function core_service_providers() {
+        return [
+            RouteServiceProvider::class
+        ];
+    }
 }

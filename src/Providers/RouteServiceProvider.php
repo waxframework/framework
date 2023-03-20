@@ -6,8 +6,6 @@ use WaxFramework\Contracts\Provider;
 
 class RouteServiceProvider extends Provider
 {
-	public function boot()
-	{
-
-	}
+    public function boot() {
+    }
 }
