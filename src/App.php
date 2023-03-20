@@ -63,8 +63,7 @@ class App
         return static::$root_url . trim( $url, '/' );
     }
 
-    protected function boot_core_service_providers(): void 
-	{
+    protected function boot_core_service_providers(): void { 
         $this->boot_service_providers( $this->core_service_providers() );
     }
 
