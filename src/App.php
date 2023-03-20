@@ -35,6 +35,7 @@ class App
 			return;
 		}
 
+		
 		$container = new Container();
 		$container->set(static::class, static::$instance);
 
