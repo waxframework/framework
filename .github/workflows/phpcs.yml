@@ -25,6 +25,10 @@ jobs:
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v2"
 
+      - name: Format PHP Code
+        continue-on-error: true
+        run: composer format
+
       - name: Run PHPCS checks
         continue-on-error: true
         run: composer phpcs
