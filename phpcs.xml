@@ -30,38 +30,32 @@
 	<arg name="extensions" value="php" />
 	<arg name="standard" value="WordPress" />
 
-	<exclude-pattern>node_modules/*</exclude-pattern>
+	<!-- exclude folders -->
+	<exclude-pattern>\.github/*</exclude-pattern>
 	<exclude-pattern>vendor/*</exclude-pattern>
 	<exclude-pattern>vendor-src/*</exclude-pattern>
+	<exclude-pattern>node_modues/*</exclude-pattern>
+	<exclude-pattern>\.idea/*</exclude-pattern>
+	<exclude-pattern>assets/*</exclude-pattern>
+	<!-- ... -->
 
 	<rule ref="PHPCompatibility" />
 
-	<rule ref="Generic.Metrics.CyclomaticComplexity">
-		<properties>
-			<property name="complexity" value="3" />
-			<property name="absoluteComplexity" value="5" />
-		</properties>
-	</rule>
-
 	<rule ref="WordPress.Security">
-		<!-- <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/> -->
 		<exclude name="WordPress.Files.FileName" />
-		<!-- <exclude name="WordPress.Arrays"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName"/>
-		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/> -->
 	</rule>
-	<!-- Enforce PSR1 compatible namespaces. -->
-	<!-- <rule ref="PSR1.Classes.ClassDeclaration"/> -->
 
-	<!-- <rule ref="WordPress.Arrays.MultipleStatementAlignment"> -->
-	<!-- <properties> -->
-	<!-- <property name="alignMultilineItems" value="!=100"/> -->
-	<!-- <property name="exact" value="false" phpcs-only="true"/> -->
-	<!-- </properties> -->
-	<!-- </rule> -->
+	<!-- Covers rule: Use lowercase letters in variable, action/filter, and function names.
+		 Separate words via underscores. -->
+	<rule ref="WordPress.NamingConventions.ValidFunctionName" />
+	<rule ref="WordPress.NamingConventions.ValidHookName" />
+	<rule ref="WordPress.NamingConventions.ValidVariableName" />
 
 	<rule ref="PSR2.Methods.FunctionClosingBrace" />
 
+	<!-- Encourage use of wp_safe_redirect() to avoid open redirect vulnerabilities.
+		 https://github.com/WordPress/WordPress-Coding-Standards/pull/1264 -->
+	<rule ref="WordPress.Security.SafeRedirect" />
 	<!--
 	#############################################################################
 	Handbook: PHP - Formatting SQL statements.
@@ -82,11 +76,17 @@
 
 	<rule ref="WordPress.DB.RestrictedFunctions" />
 	<rule ref="WordPress.DB.RestrictedClasses" />
-
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="ignoreNewlines" value="false"/>
+		</properties>
+	</rule>
 	<!-- Allow short array syntax -->
 	<rule ref="Generic.Arrays.DisallowShortArraySyntax.Found">
 		<severity>0</severity>
 	</rule>
+	<rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+	<rule ref="Generic.WhiteSpace.ScopeIndent"/>
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found" />
 	<rule ref="Generic.Arrays.ArrayIndent" />
 	<rule ref="Generic.Formatting.MultipleStatementAlignment" />
@@ -103,11 +103,7 @@
 			<property name="requiredSpacesBeforeClose" value="1" />
 		</properties>
 	</rule>
-	<!-- <rule ref="PEAR.Functions.FunctionDeclaration">
-		<properties>
-			<property name="indent" value="2" />
-		</properties>
-	</rule> -->
+	<!-- <rule ref="PEAR.Functions.FunctionDeclaration"/> -->
 	<rule ref="PSR2.ControlStructures.ControlStructureSpacing">
 		<properties>
 			<property name="requiredSpacesAfterOpen" value="1" />
@@ -144,6 +140,14 @@
 	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
 		<properties>
 			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="0" />
+			<property name="spacingAfterLast" value="0" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.WhiteSpace.MemberVarSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="0" />
 		</properties>
 	</rule>
 </ruleset>

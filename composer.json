@@ -2,8 +2,8 @@
     "name": "waxframework/framework",
     "version": "1.0.0",
     "scripts": {
-        "format": "vendor/bin/phpcbf --standard=phpcs.xml .",
-        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml ."
+        "format": "vendor/bin/phpcbf --standard=phpcs.xml",
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml --report-full --report-checkstyle=./phpcs-report.xml"
     },
     "autoload": {
         "psr-4": {
