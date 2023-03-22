@@ -77,4 +77,8 @@ class Ajax extends Route
 
         App::$container->set( WP_REST_Request::class, $wp_rest_request );
     }
+
+    protected static function format_route_regex( string $route ): string {
+        return $route;
+    }
 }
