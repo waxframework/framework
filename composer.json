@@ -1,6 +1,7 @@
 {
     "name": "waxframework/framework",
     "version": "1.0.0",
+    "license": "MIT",
     "scripts": {
         "format": "vendor/bin/phpcbf --standard=phpcs.xml",
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml --report-full --report-checkstyle=./phpcs-report.xml"
