@@ -4,20 +4,14 @@ namespace WaxFramework\Providers;
 
 use WaxFramework\Contracts\Provider;
 use WaxFramework\App;
+use WaxFramework\Request\Response;
 use WaxFramework\Request\Route\DataBinder;
+use WaxFramework\Request\Route\Ajax;
 
 class RouteServiceProvider extends Provider
 {
     public function boot() {
         add_action( 'rest_api_init', [$this, 'action_rest_api_init'] );
-        add_action( 'init', [ $this, 'action_ajax_init' ] );
-    }
-
-    /**
-     * Fires after WordPress has finished loading but before any headers are sent.
-     */
-    public function action_ajax_init() : void {
-        $this->init_routes( 'ajax' );
     }
 
     /**
@@ -25,6 +19,13 @@ class RouteServiceProvider extends Provider
      */
     public function action_rest_api_init(): void {
         $this->init_routes( 'rest' );
+    }
+
+    /**
+     * Fires after WordPress has finished loading but before any headers are sent.
+     */
+    public function ajax_init() : void {
+        $this->init_routes( 'ajax' );
     }
 
     private function init_routes( string $type ) {
@@ -48,6 +49,17 @@ class RouteServiceProvider extends Provider
                     include $version_file;
                 }
             }
+        }
+
+        if ( 'ajax' === $type && ! Ajax::$route_found ) {
+            Response::set_headers( [], 404 );
+            echo wp_json_encode(
+                [
+                    'code'    => 'ajax_no_route', 
+                    'message' => 'No route was found matching the URL and request method.'
+                ] 
+            );
+            exit;
         }
     }
 }

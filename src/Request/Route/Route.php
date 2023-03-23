@@ -90,10 +90,10 @@ class Route
     }
 
     protected static function register_route( string $method, string $route, $callback, array $middleware = [] ) {
-        $data_binder       = App::$container->get( DataBinder::class );
-        $namespace  = $data_binder->get_namespace();
-        $full_route = static::get_final_route( $route );
-        $middleware = array_merge( static::$group_middleware, $middleware );
+        $data_binder = App::$container->get( DataBinder::class );
+        $namespace   = $data_binder->get_namespace();
+        $full_route  = static::get_final_route( $route );
+        $middleware  = array_merge( static::$group_middleware, $middleware );
 
         rest_get_server()->register_route(
             $namespace, $full_route, [
@@ -140,9 +140,9 @@ class Route
             $route = ltrim( $route, '/' );
         }
         
-        $data_binder      = App::$container->get( DataBinder::class );
-        $namespace = $data_binder->get_namespace();
-        $version   = $data_binder->get_version();
+        $data_binder = App::$container->get( DataBinder::class );
+        $namespace   = $data_binder->get_namespace();
+        $version     = $data_binder->get_version();
 
         $route = static::format_route_regex( $route );
 
