@@ -2,7 +2,7 @@
 
 namespace WaxFramework\Contracts;
 
-abstract class Provider
+interface Provider
 {
-    abstract public function boot();
+    public function boot();
 }
