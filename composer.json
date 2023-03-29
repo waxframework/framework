@@ -11,6 +11,12 @@
             "WaxFramework\\": "src/"
         }
     },
+    "authors": [
+        {
+            "name": "MD AL AMIN",
+            "email": "mdalaminbey@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=7.4",
         "waxframework/routing": "1.0.0"
