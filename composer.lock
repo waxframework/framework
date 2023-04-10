@@ -4,8 +4,97 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca9be93e05b61408761c3e9e2e4e1773",
-    "packages": [],
+    "content-hash": "34a25a6bb0a25d3b36a4624c55b97448",
+    "packages": [
+        {
+            "name": "waxframework/database",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sovware/database.git",
+                "reference": "7f5db976c1d05f50d3dd65e2d926084bcac0d7af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sovware/database/zipball/7f5db976c1d05f50d3dd65e2d926084bcac0d7af",
+                "reference": "7f5db976c1d05f50d3dd65e2d926084bcac0d7af",
+                "shasum": ""
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "1.8.2",
+                "dealerdirect/phpcodesniffer-composer-installer": "1.0.0",
+                "phpcompatibility/phpcompatibility-wp": "2.1.4",
+                "squizlabs/php_codesniffer": "3.7.2",
+                "wp-coding-standards/wpcs": "^2.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WaxFramework\\Database\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "MD AL AMIN",
+                    "email": "mdalaminbey@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/sovware/database/issues",
+                "source": "https://github.com/sovware/database/tree/master"
+            },
+            "time": "2023-04-10T08:32:05+00:00"
+        },
+        {
+            "name": "waxframework/routing",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sovware/routing.git",
+                "reference": "3de1d1ae4de3e2360ff8e13f52590753297f2349"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sovware/routing/zipball/3de1d1ae4de3e2360ff8e13f52590753297f2349",
+                "reference": "3de1d1ae4de3e2360ff8e13f52590753297f2349",
+                "shasum": ""
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "1.8.2",
+                "dealerdirect/phpcodesniffer-composer-installer": "1.0.0",
+                "phpcompatibility/phpcompatibility-wp": "2.1.4",
+                "squizlabs/php_codesniffer": "3.7.2",
+                "wp-coding-standards/wpcs": "^2.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WaxFramework\\Routing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "MD AL AMIN",
+                    "email": "mdalaminbey@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/sovware/routing/issues",
+                "source": "https://github.com/sovware/routing/tree/master"
+            },
+            "time": "2023-03-29T06:51:46+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "bamarni/composer-bin-plugin",
@@ -427,7 +516,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "waxframework/routing": 20,
+        "waxframework/database": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
