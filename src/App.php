@@ -4,6 +4,7 @@ namespace WaxFramework;
 
 use DI\Container;
 use WaxFramework\Contracts\Provider;
+use WaxFramework\Providers\EnqueueServiceProvider;
 use WaxFramework\Providers\RouteServiceProvider;
 
 class App
@@ -56,11 +57,11 @@ class App
     }
 
     public static function get_dir( string $dir = '' ) {
-        return static::$root_dir . trim( $dir, '/' );
+        return static::$root_dir . ltrim( $dir, '/' );
     }
 
     public static function get_url( string $url = '' ) {
-        return static::$root_url . trim( $url, '/' );
+        return static::$root_url . ltrim( $url, '/' );
     }
 
     protected function boot_core_service_providers(): void { 
@@ -88,7 +89,8 @@ class App
 
     protected function core_service_providers() {
         return [
-            RouteServiceProvider::class
+            RouteServiceProvider::class,
+            EnqueueServiceProvider::class
         ];
     }
 }
