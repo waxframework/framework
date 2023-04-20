@@ -5,6 +5,7 @@ namespace WaxFramework;
 use DI\Container;
 use WaxFramework\Contracts\Provider;
 use WaxFramework\Providers\EnqueueServiceProvider;
+use WaxFramework\Providers\MigrationServiceProvider;
 use WaxFramework\Providers\RouteServiceProvider;
 
 class App
@@ -89,6 +90,7 @@ class App
 
     protected function core_service_providers() {
         return [
+            MigrationServiceProvider::class,
             RouteServiceProvider::class,
             EnqueueServiceProvider::class
         ];
