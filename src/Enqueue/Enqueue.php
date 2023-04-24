@@ -25,7 +25,6 @@ class Enqueue {
 
     protected static function process_style( string $handle, string $src, array $deps, $media, string $method ) {
         $src   = static::process_src( $src );
-        $src   = "assets/css/{$src}";
         $asset = include App::get_dir( $src . '.asset.php' );
 
         $method( $handle, App::get_url( "{$src}.css" ), $deps, $asset['version'], $media );
@@ -40,7 +39,6 @@ class Enqueue {
 
     protected static function process_script( string $handle, string $src, array $deps, bool $in_footer, string $method ) {
         $src   = static::process_src( $src );
-        $src   = "assets/js/{$src}";
         $asset = include App::get_dir( $src . '.asset.php' );
 
         $method( $handle, App::get_url( $src . '.js' ), array_merge( $asset['dependencies'], $deps ), $asset['version'], $in_footer );
@@ -53,6 +51,7 @@ class Enqueue {
             $src = $path_info['dirname'] . '/' . $path_info['filename'];
         }
         $src = ltrim( $src, '.' );
-        return ltrim( $src, '/' );
+        $src = ltrim( $src, '/' );
+        return 'assets/' . $src;
     }
 }
