@@ -19,7 +19,7 @@ class View {
         return ob_get_clean();
     }
 
-    protected static function get_path( string $file ):string {
+    public static function get_path( string $file ):string {
         if ( empty( pathinfo( $file )['extension'] ) ) {
             $file .= '.php';
         }
