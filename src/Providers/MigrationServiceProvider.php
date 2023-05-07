@@ -7,8 +7,15 @@ use WaxFramework\Contracts\Migration;
 use WaxFramework\Contracts\Provider;
 
 class MigrationServiceProvider implements Provider {
-
     public function boot() {
+        add_action( 'init', [ $this, 'action_init' ], 5 );
+    }
+
+    /**
+     * Fires after WordPress has finished loading but before any headers are sent.
+     *
+     */
+    public function action_init() : void {
         $migrations      = App::$config->get( 'app.migrations' );
         $current_version = App::$config->get( 'app.version' );
         $option_key      = App::$config->get( 'app.migration_db_option_key' );
