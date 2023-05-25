@@ -22,6 +22,8 @@ class App
 
     protected static string $root_url;
 
+    public static string $plugin_root_file;
+
     public static function instance() {
         if ( empty( static::$instance ) ) {
             static::$instance = new static;
@@ -56,8 +58,9 @@ class App
     }
 
     protected function set_path( string $plugin_root_file, string $plugin_root_dir ) {
-        static::$root_url = trailingslashit( plugin_dir_url( $plugin_root_file ) );
-        static::$root_dir = trailingslashit( $plugin_root_dir );
+        static::$plugin_root_file = $plugin_root_file;
+        static::$root_url         = trailingslashit( plugin_dir_url( $plugin_root_file ) );
+        static::$root_dir         = trailingslashit( $plugin_root_dir );
     }
 
     public static function get_dir( string $dir = '' ) {
