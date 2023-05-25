@@ -35,7 +35,10 @@ class App
             return;
         }
 
-        
+        if ( ! function_exists( 'get_plugin_data' ) ) {
+            require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        }
+
         $container = new Container();
         $container->set( static::class, static::$instance );
 
