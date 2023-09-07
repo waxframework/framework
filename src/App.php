@@ -32,7 +32,7 @@ class App
         return static::$instance;
     }
 
-    public function load( string $plugin_root_file, string $plugin_root_dir ) {
+    public function boot( string $plugin_root_file, string $plugin_root_dir ) {
         if ( ! empty( static::$loaded ) ) {
             return;
         }
@@ -50,6 +50,12 @@ class App
         static::$container = $container;
 
         $this->set_path( $plugin_root_file, $plugin_root_dir );
+    }
+
+    public function load( string $plugin_root_file, string $plugin_root_dir ) {
+        if ( ! empty( static::$loaded ) ) {
+            return;
+        }
 
         $this->boot_core_service_providers();
         $this->boot_plugin_service_providers();
