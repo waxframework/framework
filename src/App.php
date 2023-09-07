@@ -52,7 +52,7 @@ class App
         $this->set_path( $plugin_root_file, $plugin_root_dir );
     }
 
-    public function load( string $plugin_root_file, string $plugin_root_dir ) {
+    public function load() {
         if ( ! empty( static::$loaded ) ) {
             return;
         }
