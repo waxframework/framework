@@ -24,24 +24,42 @@ class Enqueue {
     }
 
     protected static function process_style( string $handle, string $src, array $deps, $media, string $method ) {
-        $src   = static::process_src( $src );
-        $asset = include App::get_dir( $src . '.asset.php' );
+        $src       = static::process_src( $src );
+        $asset_src = App::get_dir( $src . '.asset.php' );
+        $js_deps   = [];
 
-        $method( $handle, App::get_url( "{$src}.css" ), $deps, $asset['version'], $media );
+        if ( file_exists( $asset_src ) ) {
+            $asset   = include $asset_src;
+            $js_deps = $asset['dependencies'];
+            $version = $asset['version'];
+        } else {
+            $version = App::$config->get( 'app.version' );
+        }
+
+        $method( $handle, App::get_url( "{$src}.css" ), $deps, $version, $media );
 
         /**
          * Load css hot reload js script
          */
-        if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ) {
-            wp_enqueue_script( "{$handle}-script", App::get_url( "{$src}.js" ), $asset['dependencies'], $asset['version'] );
+        if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true && file_exists( App::get_dir( "{$src}.js" ) ) ) {
+
+            wp_enqueue_script( "{$handle}-script", App::get_url( "{$src}.js" ), $js_deps, $version );
         }
     }
 
     protected static function process_script( string $handle, string $src, array $deps, bool $in_footer, string $method ) {
-        $src   = static::process_src( $src );
-        $asset = include App::get_dir( $src . '.asset.php' );
+        $src       = static::process_src( $src );
+        $asset_src = App::get_dir( $src . '.asset.php' );
 
-        $method( $handle, App::get_url( $src . '.js' ), array_merge( $asset['dependencies'], $deps ), $asset['version'], $in_footer );
+        if ( file_exists( $asset_src ) ) {
+            $asset   = include $asset_src;
+            $deps    = array_merge( $asset['dependencies'], $deps );
+            $version = $asset['version'];
+        } else {
+            $version = App::$config->get( 'app.version' );
+        }
+
+        $method( $handle, App::get_url( $src . '.js' ), $deps, $version, $in_footer );
     }
 
     protected static function process_src( string $src ) {
