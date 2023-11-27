@@ -59,6 +59,15 @@ class Enqueue {
             $version = App::$config->get( 'app.version' );
         }
 
+        /**
+         * Removed self dependency
+         */
+        $handlers = array_filter(
+            array_merge( $asset['dependencies'], $deps ), function( $item ) use( $handle ) {
+                return $item !== $handle;
+            }
+        );
+
         $method( $handle, App::get_url( $src . '.js' ), $deps, $version, $in_footer );
     }
 
