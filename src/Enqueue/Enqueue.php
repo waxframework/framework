@@ -68,7 +68,7 @@ class Enqueue {
             }
         );
 
-        $method( $handle, App::get_url( $src . '.js' ), $deps, $version, $in_footer );
+        $method( $handle, App::get_url( $src . '.js' ), array_unique( $handlers ), $version, $in_footer );
     }
 
     protected static function process_src( string $src ) {
